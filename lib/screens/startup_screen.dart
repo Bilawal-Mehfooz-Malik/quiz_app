@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:quiz_app/screens/categories_screen.dart';
 
 class StartUpScreen extends StatelessWidget {
@@ -13,8 +14,19 @@ class StartUpScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            const Text('Welcome'),
             const Spacer(),
+            //* Header Welcome Animation and Text
+            SizedBox(
+              width: 200,
+              height: 80,
+              child: Lottie.asset('assets/animations/welcome_animation.json'),
+            ),
+            const Text(' to the Explore Islam Quiz: Let\'s Discover Together!',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+            const Spacer(),
+
+            // Start Quiz Button
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 shape: const RoundedRectangleBorder(),
@@ -27,6 +39,7 @@ class StartUpScreen extends StatelessWidget {
               label: const Text('Start Quiz'),
               icon: const Icon(Icons.arrow_forward),
             ),
+            const Spacer(),
           ],
         ),
       ),
