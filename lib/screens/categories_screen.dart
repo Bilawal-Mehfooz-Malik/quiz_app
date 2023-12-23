@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:quiz_app/data/categories_data.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class CategoriesScreen extends StatelessWidget {
   static const String routeName = 'CategoriesScreen';
@@ -11,7 +13,11 @@ class CategoriesScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Image.asset('assets/images/Kaaba.jpg', fit: BoxFit.cover),
+          //* Background Image
+          Image.network(
+            'https://img.freepik.com/free-vector/elegant-damask-style-pattern-background_1048-11129.jpg?w=740&t=st=1703306231~exp=1703306831~hmac=fd0ec706b4a6dd660611e1792fe6ce7389d857cb1d6b40f6719fcb274215330e',
+            fit: BoxFit.cover,
+          ),
           Positioned(
             bottom: 16.0,
             left: 0,
@@ -29,37 +35,52 @@ class CategoriesScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
 
-                //*Categories Content
+                //!Categories Content grid view for each item
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.8,
                   child: GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      crossAxisSpacing: 4,
-                      mainAxisSpacing: 4,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
                     ),
                     itemCount: categories.length,
                     itemBuilder: (context, index) {
                       return Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
                         child: Stack(
                           fit: StackFit.expand,
                           children: [
-                            Image.network(
-                              categoriesImages[0],
-                              fit: BoxFit.cover,
+                            //? Grid view Image
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: CachedNetworkImage(
+                                imageUrl: categoriesImages[index],
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) {
+                                  return Shimmer.fromColors(
+                                    baseColor: Colors.grey[300]!,
+                                    highlightColor: Colors.grey[100]!,
+                                    child: Container(color: Colors.white),
+                                  );
+                                },
+                              ),
                             ),
+
+                            //? Positioned text on grid view image
                             Positioned(
                               bottom: 0,
                               left: 0,
                               right: 0,
                               child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                  ),
+                                  color: Colors.black.withOpacity(0.5),
+                                ),
                                 padding: const EdgeInsets.all(8),
-                                color: Colors.black.withOpacity(0.5),
                                 child: Text(
                                   categories[index],
                                   textAlign: TextAlign.center,

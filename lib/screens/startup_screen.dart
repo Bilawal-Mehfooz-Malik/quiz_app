@@ -1,6 +1,6 @@
+import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 import 'package:quiz_app/screens/categories_screen.dart';
 
 class StartUpScreen extends StatelessWidget {
@@ -26,7 +26,7 @@ class StartUpScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
             const Spacer(),
 
-            // Start Quiz Button
+            // *Start Quiz Button
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 shape: const RoundedRectangleBorder(),
