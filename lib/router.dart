@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:quiz_app/screens/startup_screen.dart';
 import 'package:quiz_app/screens/categories_screen.dart';
+import 'package:quiz_app/screens/category_details_screen.dart';
 
 final router = GoRouter(
   initialLocation: '/',
@@ -11,9 +12,15 @@ final router = GoRouter(
       builder: (context, state) => const StartUpScreen(),
     ),
     GoRoute(
-      path: '/categories',
-      name: CategoriesScreen.routeName,
-      builder: (context, state) => const CategoriesScreen(),
-    ),
+        path: '/categories',
+        name: CategoriesScreen.routeName,
+        builder: (context, state) => const CategoriesScreen(),
+        routes: [
+          GoRoute(
+            path: 'category_details',
+            name: CategoryDetailsScreen.routeName,
+            builder: (context, state) => const CategoryDetailsScreen(),
+          )
+        ]),
   ],
 );

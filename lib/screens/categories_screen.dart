@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:quiz_app/screens/category_details_screen.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:quiz_app/data/categories_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -47,51 +49,56 @@ class CategoriesScreen extends StatelessWidget {
                     ),
                     itemCount: categories.length,
                     itemBuilder: (context, index) {
-                      return Card(
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            //? Grid view Image
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: CachedNetworkImage(
-                                imageUrl: categoriesImages[index],
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Container(color: Colors.white),
-                                  );
-                                },
+                      return InkWell(
+                        onTap: () {
+                          context.goNamed(CategoryDetailsScreen.routeName);
+                        },
+                        child: Card(
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              //? Grid view Image
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: CachedNetworkImage(
+                                  imageUrl: categoriesImages[index],
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Container(color: Colors.white),
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
 
-                            //? Positioned text on grid view image
-                            Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10),
+                              //? Positioned text on grid view image
+                              Positioned(
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10),
+                                    ),
+                                    color: Colors.black.withOpacity(0.5),
                                   ),
-                                  color: Colors.black.withOpacity(0.5),
-                                ),
-                                padding: const EdgeInsets.all(8),
-                                child: Text(
-                                  categories[index],
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                                  padding: const EdgeInsets.all(8),
+                                  child: Text(
+                                    categories[index],
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },
