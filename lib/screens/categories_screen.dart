@@ -51,7 +51,10 @@ class CategoriesScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          context.goNamed(CategoryDetailsScreen.routeName);
+                          context.goNamed(
+                            CategoryDetailsScreen.routeName,
+                            pathParameters: {'title': categories[index]},
+                          );
                         },
                         child: Card(
                           child: Stack(

@@ -17,9 +17,12 @@ final router = GoRouter(
         builder: (context, state) => const CategoriesScreen(),
         routes: [
           GoRoute(
-            path: 'category_details',
+            path: 'category_details/:title',
             name: CategoryDetailsScreen.routeName,
-            builder: (context, state) => const CategoryDetailsScreen(),
+            builder: (context, state) {
+              final title = state.pathParameters['title'] as String;
+              return CategoryDetailsScreen(title: title);
+            },
           )
         ]),
   ],
