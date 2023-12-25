@@ -1,72 +1,60 @@
-import 'package:quiz_app/common/custom_icon_button.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:quiz_app/data/categories_data.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:quiz_app/data/category_details_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:quiz_app/providers/category_details_provider.dart';
 
-class CategoryDetailsScreen extends StatefulWidget {
+import '../widgets/cicular_wheel_widget.dart';
+
+class CategoryDetailsScreen extends StatelessWidget {
   final String title;
   static const String routeName = 'CategoryDetailsScreen';
 
   const CategoryDetailsScreen({super.key, required this.title});
 
   @override
-  State<CategoryDetailsScreen> createState() => _CategoryDetailsScreenState();
-}
-
-class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
-  var _isPlayed = false;
-  final _carouselController = CarouselController();
-
-  @override
   Widget build(BuildContext context) {
-    final data = categoryDetailsData[widget.title] ?? [];
+    final data = categoryDetailsData[title] ?? [];
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(title),
         ),
-        body: Column(
-          children: [
-            CarouselSlider(
-              carouselController: _carouselController,
-              items: data.map<Widget>((item) {
-                final index = data.indexOf(item);
-                return CategoryCard(
-                    title: item, imageUrl: categoriesImages[index]);
-              }).toList(),
-              options: CarouselOptions(
-                height: MediaQuery.of(context).size.height * 0.4,
-                enlargeCenterPage: true,
-                viewportFraction: 0.8,
-                autoPlay: _isPlayed,
-                autoPlayInterval: const Duration(seconds: 2),
+        body: Consumer<CategoryDetailsProvider>(
+          builder: (context, provider, child) => Column(
+            children: [
+              //* Slider at top
+              CarouselSlider(
+                carouselController: provider.carouselController,
+                items: data.map<Widget>((item) {
+                  final index = data.indexOf(item);
+                  return CategoryCard(
+                      title: item, imageUrl: categoriesImages[index]);
+                }).toList(),
+                options: CarouselOptions(
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  enlargeCenterPage: true,
+                  viewportFraction: 0.8,
+                  autoPlay: provider.isPlayed,
+                  autoPlayInterval: const Duration(seconds: 2),
+                ),
               ),
-            ),
-            const Spacer(),
+              const Spacer(),
 
-            //* Circular wheel at bottom
-            CicularWheel(
-              isplayed: _isPlayed,
-              play: () {
-                setState(() {
-                  _isPlayed = true;
-                });
-                _carouselController.startAutoPlay();
-              },
-              stop: () {
-                setState(() {
-                  _isPlayed = false;
-                });
-                _carouselController.stopAutoPlay();
-              },
-              forwardCallback: () => _carouselController.nextPage(),
-              reverseCallback: () => _carouselController.previousPage(),
-            ),
-            const Spacer(),
-          ],
+              //* Circular wheel at bottom
+              CicularWheel(
+                play: provider.autoPlay,
+                stop: provider.stopPlay,
+                isplayed: provider.isPlayed,
+                forwardCallback: provider.nextPage,
+                reverseCallback: provider.previousPage,
+              ),
+              const Spacer(),
+            ],
+          ),
         ),
       ),
     );
@@ -132,85 +120,6 @@ class CategoryCard extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class CicularWheel extends StatelessWidget {
-  final bool isplayed;
-  final VoidCallback play;
-  final VoidCallback stop;
-  final VoidCallback forwardCallback;
-  final VoidCallback reverseCallback;
-
-  const CicularWheel({
-    super.key,
-    required this.play,
-    required this.stop,
-    required this.isplayed,
-    required this.forwardCallback,
-    required this.reverseCallback,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          GestureDetector(
-            child: Container(
-              height: 300,
-              width: 300,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Theme.of(context).colorScheme.background,
-            ),
-          ),
-
-          //* Top button
-          Positioned(
-            top: 30,
-            child: TextButton(
-              onPressed: () {},
-              child: const Text(
-                'Details',
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
-            ),
-          ),
-
-          //* bottom button
-          CustomIconButton(
-            bottom: 25,
-            icon: isplayed ? Icons.stop : Icons.play_arrow,
-            onPressed: isplayed ? stop : play,
-          ),
-
-          //* left button
-          CustomIconButton(
-            left: 16,
-            icon: Icons.fast_rewind,
-            onPressed: reverseCallback,
-          ),
-
-          //* right button
-          CustomIconButton(
-            right: 16,
-            icon: Icons.fast_forward,
-            onPressed: forwardCallback,
-          )
-        ],
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:provider/provider.dart';
+import 'package:quiz_app/providers/category_details_provider.dart';
 import 'package:quiz_app/router.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +15,12 @@ final _darkTheme = ThemeData(
 );
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CategoryDetailsProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
