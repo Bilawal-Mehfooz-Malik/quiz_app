@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+
+import '../screens/category_full.dart';
 
 class CategoryDetailsProvider extends ChangeNotifier {
   var _isPlayed = false;
@@ -26,5 +29,12 @@ class CategoryDetailsProvider extends ChangeNotifier {
 
   void previousPage() {
     _carouselController.previousPage();
+  }
+
+  void detailsPage(BuildContext context, String url, String title) {
+    context.goNamed(
+      CategoryFullScreen.routeName,
+      pathParameters: {'imageUrl': url, 'subtopicTitle': title},
+    );
   }
 }

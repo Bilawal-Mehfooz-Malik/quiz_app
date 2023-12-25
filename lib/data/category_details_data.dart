@@ -1,34 +1,194 @@
-const Map<String, List<String>> categoryDetailsData = {
+const Map<String, List<Map<String, String>>> categoryDetailsData = {
   'Prophets & Messengers': [
-    'Subtopic 1',
-    'Subtopic 2',
-    'Subtopic 1',
-    'Subtopic 2',
-    'Subtopic 1',
-    'Subtopic 2',
+    {
+      'title': 'Subtopic 1',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 2',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 3',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 4',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 5',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 6',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    }
   ],
   'History of Islam': [
-    'Subtopic 1',
-    'Subtopic 2',
-    'Subtopic 1',
-    'Subtopic 2',
-    'Subtopic 1',
-    'Subtopic 2',
+    {
+      'title': 'Subtopic 1',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 2',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 3',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 4',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 5',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 6',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    }
   ],
   'Quran Teachings': [
-    'Subtopic 1',
-    'Subtopic 2',
+    {
+      'title': 'Subtopic 1',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 2',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 3',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 4',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 5',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 6',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    }
   ],
   'Islamic Practices': [
-    'Subtopic 1',
-    'Subtopic 2',
+    {
+      'title': 'Subtopic 1',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 2',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 3',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 4',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 5',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 6',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    }
   ],
   'Famous Muslim Thinkers': [
-    'Subtopic 1',
-    'Subtopic 2',
+    {
+      'title': 'Subtopic 1',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 2',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 3',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 4',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 5',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 6',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    }
   ],
   'Important Places in Islam': [
-    'Subtopic 1',
-    'Subtopic 2',
+    {
+      'title': 'Subtopic 1',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 2',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 3',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 4',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 5',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    },
+    {
+      'title': 'Subtopic 6',
+      'imageUrl':
+          'https://cdn.pixabay.com/photo/2016/11/11/00/57/prophet-1815557_1280.jpg',
+    }
   ],
 };

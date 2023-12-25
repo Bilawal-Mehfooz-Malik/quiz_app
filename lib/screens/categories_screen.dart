@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:quiz_app/screens/category_details_screen.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:quiz_app/data/categories_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
+import '../data/categories_data.dart';
+import '../common/shimmer_loader.dart';
+import '../screens/category_details_screen.dart';
 
 class CategoriesScreen extends StatelessWidget {
   static const String routeName = 'CategoriesScreen';
@@ -53,7 +54,7 @@ class CategoriesScreen extends StatelessWidget {
                         onTap: () {
                           context.goNamed(
                             CategoryDetailsScreen.routeName,
-                            pathParameters: {'title': categories[index]},
+                            pathParameters: {'categoryTitle': categories[index]},
                           );
                         },
                         child: Card(
@@ -67,11 +68,7 @@ class CategoriesScreen extends StatelessWidget {
                                   imageUrl: categoriesImages[index],
                                   fit: BoxFit.cover,
                                   placeholder: (context, url) {
-                                    return Shimmer.fromColors(
-                                      baseColor: Colors.grey[300]!,
-                                      highlightColor: Colors.grey[100]!,
-                                      child: Container(color: Colors.white),
-                                    );
+                                    return const ShimmerLoader();
                                   },
                                 ),
                               ),

@@ -1,13 +1,12 @@
-import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_app/data/categories_data.dart';
+import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:quiz_app/data/category_details_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:quiz_app/providers/category_details_provider.dart';
 
+import '../common/shimmer_loader.dart';
+import '../data/category_details_data.dart';
 import '../widgets/cicular_wheel_widget.dart';
+import '../providers/category_details_provider.dart';
 
 class CategoryDetailsScreen extends StatelessWidget {
   final String title;
@@ -17,6 +16,7 @@ class CategoryDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int pageIndex = 0;
     final data = categoryDetailsData[title] ?? [];
     return SafeArea(
       child: Scaffold(
@@ -31,8 +31,11 @@ class CategoryDetailsScreen extends StatelessWidget {
                 carouselController: provider.carouselController,
                 items: data.map<Widget>((item) {
                   final index = data.indexOf(item);
-                  return CategoryCard(
-                      title: item, imageUrl: categoriesImages[index]);
+                  final imageUrl =
+                      categoryDetailsData[title]?[index]['imageUrl'] ?? '';
+                  final subtopicTitle =
+                      categoryDetailsData[title]?[index]['title'] ?? '';
+                  return CategoryCard(title: subtopicTitle, imageUrl: imageUrl);
                 }).toList(),
                 options: CarouselOptions(
                   height: MediaQuery.of(context).size.height * 0.4,
@@ -40,6 +43,9 @@ class CategoryDetailsScreen extends StatelessWidget {
                   viewportFraction: 0.8,
                   autoPlay: provider.isPlayed,
                   autoPlayInterval: const Duration(seconds: 2),
+                  onPageChanged: (index, reason) {
+                    pageIndex = index;
+                  },
                 ),
               ),
               const Spacer(),
@@ -49,6 +55,13 @@ class CategoryDetailsScreen extends StatelessWidget {
                 play: provider.autoPlay,
                 stop: provider.stopPlay,
                 isplayed: provider.isPlayed,
+                details: () {
+                  final imageUrl =
+                      categoryDetailsData[title]?[pageIndex]['imageUrl'];
+                  final categoryTitle =
+                      categoryDetailsData[title]?[pageIndex]['title'];
+                  provider.detailsPage(context, imageUrl!, categoryTitle!);
+                },
                 forwardCallback: provider.nextPage,
                 reverseCallback: provider.previousPage,
               ),
@@ -87,11 +100,7 @@ class CategoryCard extends StatelessWidget {
               imageUrl: imageUrl,
               fit: BoxFit.cover,
               placeholder: (context, url) {
-                return Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
-                  child: Container(color: Colors.white),
-                );
+                return const ShimmerLoader();
               },
             ),
             Positioned(

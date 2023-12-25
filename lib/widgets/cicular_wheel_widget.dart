@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/common/custom_icon_button.dart';
+import '../common/custom_icon_button.dart';
 
 class CicularWheel extends StatelessWidget {
   final bool isplayed;
   final VoidCallback play;
   final VoidCallback stop;
+  final VoidCallback details;
   final VoidCallback forwardCallback;
   final VoidCallback reverseCallback;
 
@@ -12,6 +13,7 @@ class CicularWheel extends StatelessWidget {
     super.key,
     required this.play,
     required this.stop,
+    required this.details,
     required this.isplayed,
     required this.forwardCallback,
     required this.reverseCallback,
@@ -46,7 +48,7 @@ class CicularWheel extends StatelessWidget {
           Positioned(
             top: 30,
             child: TextButton(
-              onPressed: () {},
+              onPressed: details,
               child: const Text(
                 'Details',
                 style: TextStyle(fontSize: 18, color: Colors.white),

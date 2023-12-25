@@ -1,7 +1,8 @@
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:quiz_app/screens/categories_screen.dart';
+
+import '../screens/categories_screen.dart';
 
 class StartUpScreen extends StatelessWidget {
   static const String routeName = 'StartUp';

@@ -1,7 +1,9 @@
 import 'package:go_router/go_router.dart';
-import 'package:quiz_app/screens/startup_screen.dart';
-import 'package:quiz_app/screens/categories_screen.dart';
-import 'package:quiz_app/screens/category_details_screen.dart';
+import 'package:quiz_app/screens/category_full.dart';
+
+import '../screens/startup_screen.dart';
+import '../screens/categories_screen.dart';
+import '../screens/category_details_screen.dart';
 
 final router = GoRouter(
   initialLocation: '/',
@@ -12,18 +14,30 @@ final router = GoRouter(
       builder: (context, state) => const StartUpScreen(),
     ),
     GoRoute(
-        path: '/categories',
-        name: CategoriesScreen.routeName,
-        builder: (context, state) => const CategoriesScreen(),
-        routes: [
-          GoRoute(
-            path: 'category_details/:title',
-            name: CategoryDetailsScreen.routeName,
-            builder: (context, state) {
-              final title = state.pathParameters['title'] as String;
-              return CategoryDetailsScreen(title: title);
-            },
-          )
-        ]),
+      path: '/categories',
+      name: CategoriesScreen.routeName,
+      builder: (context, state) => const CategoriesScreen(),
+      routes: [
+        GoRoute(
+          path: 'category_details/:categoryTitle',
+          name: CategoryDetailsScreen.routeName,
+          builder: (context, state) {
+            final title = state.pathParameters['categoryTitle'] as String;
+            return CategoryDetailsScreen(title: title);
+          },
+          routes: [
+            GoRoute(
+              path: 'category_full/:subtopicTitle/:imageUrl',
+              name: CategoryFullScreen.routeName,
+              builder: (context, state) {
+                final imageUrl = state.pathParameters['imageUrl']!;
+                final title = state.pathParameters['subtopicTitle']!;
+                return CategoryFullScreen(imageUrl: imageUrl, title: title);
+              },
+            ),
+          ],
+        ),
+      ],
+    ),
   ],
 );
