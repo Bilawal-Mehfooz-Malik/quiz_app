@@ -1,3 +1,4 @@
+import 'package:quiz_app/common/custom_icon_button.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:quiz_app/data/categories_data.dart';
@@ -171,9 +172,9 @@ class CicularWheel extends StatelessWidget {
           Container(
             height: 100,
             width: 100,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white38,
+              color: Theme.of(context).colorScheme.background,
             ),
           ),
 
@@ -190,37 +191,25 @@ class CicularWheel extends StatelessWidget {
           ),
 
           //* bottom button
-          Positioned(
+          CustomIconButton(
             bottom: 25,
-            child: IconButton(
-              iconSize: 40,
-              color: Colors.white,
-              onPressed: isplayed ? stop : play,
-              icon: Icon(isplayed ? Icons.stop : Icons.play_arrow),
-            ),
+            icon: isplayed ? Icons.stop : Icons.play_arrow,
+            onPressed: isplayed ? stop : play,
           ),
 
           //* left button
-          Positioned(
+          CustomIconButton(
             left: 16,
-            child: IconButton(
-              iconSize: 40,
-              color: Colors.white,
-              onPressed: reverseCallback,
-              icon: const Icon(Icons.fast_rewind),
-            ),
+            icon: Icons.fast_rewind,
+            onPressed: reverseCallback,
           ),
 
           //* right button
-          Positioned(
+          CustomIconButton(
             right: 16,
-            child: IconButton(
-              iconSize: 40,
-              color: Colors.white,
-              onPressed: forwardCallback,
-              icon: const Icon(Icons.fast_forward),
-            ),
-          ),
+            icon: Icons.fast_forward,
+            onPressed: forwardCallback,
+          )
         ],
       ),
     );
