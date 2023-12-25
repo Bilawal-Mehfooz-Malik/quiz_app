@@ -5,23 +5,32 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:quiz_app/data/category_details_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class CategoryDetailsScreen extends StatelessWidget {
-  static const String routeName = 'CategoryDetailsScreen';
+class CategoryDetailsScreen extends StatefulWidget {
   final String title;
+  static const String routeName = 'CategoryDetailsScreen';
 
   const CategoryDetailsScreen({super.key, required this.title});
 
   @override
+  State<CategoryDetailsScreen> createState() => _CategoryDetailsScreenState();
+}
+
+class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
+  var _isPlayed = false;
+  final _carouselController = CarouselController();
+
+  @override
   Widget build(BuildContext context) {
-    final data = categoryDetailsData[title] ?? [];
+    final data = categoryDetailsData[widget.title] ?? [];
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(widget.title),
         ),
         body: Column(
           children: [
             CarouselSlider(
+              carouselController: _carouselController,
               items: data.map<Widget>((item) {
                 final index = data.indexOf(item);
                 return CategoryCard(
@@ -31,10 +40,30 @@ class CategoryDetailsScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.4,
                 enlargeCenterPage: true,
                 viewportFraction: 0.8,
+                autoPlay: _isPlayed,
+                autoPlayInterval: const Duration(seconds: 2),
               ),
             ),
             const Spacer(),
-            const CicularWheel(),
+
+            //* Circular wheel at bottom
+            CicularWheel(
+              isplayed: _isPlayed,
+              play: () {
+                setState(() {
+                  _isPlayed = true;
+                });
+                _carouselController.startAutoPlay();
+              },
+              stop: () {
+                setState(() {
+                  _isPlayed = false;
+                });
+                _carouselController.stopAutoPlay();
+              },
+              forwardCallback: () => _carouselController.nextPage(),
+              reverseCallback: () => _carouselController.previousPage(),
+            ),
             const Spacer(),
           ],
         ),
@@ -47,7 +76,11 @@ class CategoryCard extends StatelessWidget {
   final String title;
   final String imageUrl;
 
-  const CategoryCard({super.key, required this.title, required this.imageUrl});
+  const CategoryCard({
+    super.key,
+    required this.title,
+    required this.imageUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +137,20 @@ class CategoryCard extends StatelessWidget {
 }
 
 class CicularWheel extends StatelessWidget {
-  const CicularWheel({super.key});
+  final bool isplayed;
+  final VoidCallback play;
+  final VoidCallback stop;
+  final VoidCallback forwardCallback;
+  final VoidCallback reverseCallback;
+
+  const CicularWheel({
+    super.key,
+    required this.play,
+    required this.stop,
+    required this.isplayed,
+    required this.forwardCallback,
+    required this.reverseCallback,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +174,51 @@ class CicularWheel extends StatelessWidget {
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white38,
+            ),
+          ),
+
+          //* Top button
+          Positioned(
+            top: 30,
+            child: TextButton(
+              onPressed: () {},
+              child: const Text(
+                'Details',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+            ),
+          ),
+
+          //* bottom button
+          Positioned(
+            bottom: 25,
+            child: IconButton(
+              iconSize: 40,
+              color: Colors.white,
+              onPressed: isplayed ? stop : play,
+              icon: Icon(isplayed ? Icons.stop : Icons.play_arrow),
+            ),
+          ),
+
+          //* left button
+          Positioned(
+            left: 16,
+            child: IconButton(
+              iconSize: 40,
+              color: Colors.white,
+              onPressed: reverseCallback,
+              icon: const Icon(Icons.fast_rewind),
+            ),
+          ),
+
+          //* right button
+          Positioned(
+            right: 16,
+            child: IconButton(
+              iconSize: 40,
+              color: Colors.white,
+              onPressed: forwardCallback,
+              icon: const Icon(Icons.fast_forward),
             ),
           ),
         ],
