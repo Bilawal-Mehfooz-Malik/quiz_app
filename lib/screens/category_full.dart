@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/common/shimmer_loader.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class CategoryFullScreen extends StatelessWidget {
-  final String title;
   final String imageUrl;
   static const String routeName = 'CategoryFullScreen';
-
-  const CategoryFullScreen({
-    super.key,
-    required this.imageUrl,
-    required this.title,
-  });
+  const CategoryFullScreen({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Hero(tag: imageUrl, child: Image.network(imageUrl)),
+      appBar: AppBar(),
+      body: CachedNetworkImage(
+        imageUrl: imageUrl,
+        fit: BoxFit.cover,
+        
+        placeholder: (context, url) => const ShimmerLoader(),
+      ),
     );
   }
 }

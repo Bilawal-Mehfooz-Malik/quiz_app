@@ -27,12 +27,11 @@ final router = GoRouter(
           },
           routes: [
             GoRoute(
-              path: 'category_full/:subtopicTitle/:imageUrl',
+              path: 'category_full',
               name: CategoryFullScreen.routeName,
               builder: (context, state) {
-                final imageUrl = state.pathParameters['imageUrl']!;
-                final title = state.pathParameters['subtopicTitle']!;
-                return CategoryFullScreen(imageUrl: imageUrl, title: title);
+                final url = state.extra;
+                return  CategoryFullScreen(imageUrl: url.toString(),);
               },
             ),
           ],

@@ -31,10 +31,10 @@ class CategoryDetailsProvider extends ChangeNotifier {
     _carouselController.previousPage();
   }
 
-  void detailsPage(BuildContext context, String url, String title) {
-    context.goNamed(
-      CategoryFullScreen.routeName,
-      pathParameters: {'imageUrl': url, 'subtopicTitle': title},
+  void detailsPage(BuildContext context, String url) {
+    context.go(
+      '/categories/category_details/:categoryTitle/category_full',
+      extra: url,
     );
   }
 }

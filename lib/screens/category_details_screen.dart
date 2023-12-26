@@ -31,10 +31,8 @@ class CategoryDetailsScreen extends StatelessWidget {
                 carouselController: provider.carouselController,
                 items: data.map<Widget>((item) {
                   final index = data.indexOf(item);
-                  final imageUrl =
-                      categoryDetailsData[title]?[index]['imageUrl'] ?? '';
-                  final subtopicTitle =
-                      categoryDetailsData[title]?[index]['title'] ?? '';
+                  final imageUrl = data[index]['imageUrl'] ?? '';
+                  final subtopicTitle = data[index]['title'] ?? '';
                   return CategoryCard(title: subtopicTitle, imageUrl: imageUrl);
                 }).toList(),
                 options: CarouselOptions(
@@ -56,11 +54,8 @@ class CategoryDetailsScreen extends StatelessWidget {
                 stop: provider.stopPlay,
                 isplayed: provider.isPlayed,
                 details: () {
-                  final imageUrl =
-                      categoryDetailsData[title]?[pageIndex]['imageUrl'];
-                  final categoryTitle =
-                      categoryDetailsData[title]?[pageIndex]['title'];
-                  provider.detailsPage(context, imageUrl!, categoryTitle!);
+                  final url = data[pageIndex]['imageUrl'];
+                  provider.detailsPage(context, url!);
                 },
                 forwardCallback: provider.nextPage,
                 reverseCallback: provider.previousPage,
